@@ -50,7 +50,7 @@ func getIndex(key string) (int, error) {
 	return int(index), nil
 }
 
-func (h *HashMap) Insert(key, value string) error {
+func (h *HashMap) Put(key, value string) error {
 
 	index, err := getIndex(key)
 	if err != nil {
@@ -87,7 +87,7 @@ func (h *HashMap) Insert(key, value string) error {
 	}
 }
 
-func (h *HashMap) Value(key string) (string, error) {
+func (h *HashMap) Get(key string) (string, error) {
 	index, err := getIndex(key)
 	if err != nil {
 		return "", err
@@ -109,4 +109,60 @@ func (h *HashMap) Value(key string) (string, error) {
 		}
 		curr = curr.next
 	}
+}
+
+func (h *HashMap) Remove(key string) *string {
+	index, err := getIndex(key)
+	if err != nil {
+		return nil
+	}
+
+	curr := h.Data[index]
+
+	if curr == nil {
+		return nil
+	}
+
+	prev := curr
+
+	for {
+		if curr.key == key {
+			if prev == curr && curr != nil && curr.next != nil {
+				h.Data[index] = curr.next
+				return &curr.val
+			}
+
+			if prev == curr && curr != nil && curr.next == nil {
+				h.Data[index] = nil
+				return &curr.val
+			}
+
+			if prev != curr && curr.next != nil {
+				prev.next = curr.next
+				return &curr.val
+			}
+
+			if prev != curr && curr.next == nil {
+				prev.next = nil
+				return &curr.val
+			}
+		}
+
+		if curr.next == nil {
+			return nil
+		}
+
+		prev = curr
+		curr = curr.next
+	}
+}
+
+func (h *HashMap) IsEmpty() bool {
+	for _, v := range h.Data {
+		if v != nil {
+			return false
+		}
+	}
+
+	return true
 }
