@@ -1,19 +1,13 @@
 package com.bondhan.java;
 
 public class Node{
-    private String Value;
-    private String Key;
-    private Node Next;
+    public String Value;
+    public String Key;
+    public Node Next;
 
-    public String getKey()  {
-        return Key;
+    public Node(String key, String value){
+        Key = key;
+        Value = value;
     }
 
-    public String getValue() {
-        return Value;
-    }
-
-    public Node getNext() {
-        return Next;
-    }
 }
