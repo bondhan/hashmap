@@ -2,10 +2,9 @@ package hashmap
 
 import (
 	"errors"
-	"hash/fnv"
 )
 
-const SIZE = 100
+const SIZE = 64
 
 type Node struct {
 	key  string
@@ -21,25 +20,17 @@ func NewHashMap() *HashMap {
 	return &HashMap{Data: make([]*Node, SIZE)}
 }
 
-func Hash(key string) (uint32, error) {
-	hash := fnv.New32a()
-	write, err := hash.Write([]byte(key))
-	if err != nil {
-		return 0, err
+func Hash(key string) uint32 {
+	total := uint32(0)
+	for _, c := range key {
+		total += uint32(c)
 	}
 
-	if write <= 0 {
-		return 0, errors.New("invalid hash")
-	}
-
-	return hash.Sum32(), nil
+	return total
 }
 
 func getIndex(key string) (int, error) {
-	hash, err := Hash(key)
-	if err != nil {
-		return 0, err
-	}
+	hash := Hash(key)
 
 	index := hash % SIZE
 

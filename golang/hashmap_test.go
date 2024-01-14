@@ -19,13 +19,11 @@ func TestNewHashMap(t *testing.T) {
 }
 
 func TestHash(t *testing.T) {
-	v, e := Hash("")
-	assert.Error(t, e)
-	assert.Equal(t, uint32(0), uint32(0))
+	v := Hash("a")
+	assert.Equal(t, uint32(0x61), v)
 
-	v, e = Hash("a")
-	assert.Nil(t, e)
-	assert.Equal(t, uint32(3826002220), v)
+	v = Hash("A")
+	assert.Equal(t, uint32(0x41), v)
 }
 
 func TestInsertNewItem(t *testing.T) {
