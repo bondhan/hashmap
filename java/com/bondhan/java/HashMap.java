@@ -1,7 +1,6 @@
 package com.bondhan.java;
 
 import java.io.*;
-import java.util.Objects;
 
 public class HashMap {
 
