@@ -16,6 +16,23 @@ func TestNewHashMap(t *testing.T) {
 	for _, v := range n.Data {
 		assert.Nil(t, v)
 	}
+
+	n = nil
+
+	n = NewHashMap(10)
+	assert.Equal(t, len(n.Data), 10)
+	for _, v := range n.Data {
+		assert.Nil(t, v)
+	}
+
+	n = nil
+
+	n = NewHashMap(0)
+	assert.Equal(t, len(n.Data), SIZE)
+	for _, v := range n.Data {
+		assert.Nil(t, v)
+	}
+
 }
 
 func TestHash(t *testing.T) {

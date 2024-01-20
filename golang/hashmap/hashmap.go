@@ -16,8 +16,14 @@ type HashMap struct {
 	Data []*Node
 }
 
-func NewHashMap() *HashMap {
-	return &HashMap{Data: make([]*Node, SIZE)}
+func NewHashMap(sz ...int) *HashMap {
+	size := SIZE
+
+	if len(sz) > 0 && sz[0] > 0 {
+		size = sz[0]
+	}
+
+	return &HashMap{Data: make([]*Node, size)}
 }
 
 func Hash(key string) uint32 {

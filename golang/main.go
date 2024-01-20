@@ -11,6 +11,7 @@ import (
 	"github.com/bondhan/hashmap/api"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/sirupsen/logrus"
 )
 
@@ -26,11 +27,12 @@ func main() {
 		w.Write([]byte("welcome"))
 	})
 
+	r.Get("/init", api.Init)
 	r.Get("/put", api.Put)
 	r.Get("/get", api.Get)
 	r.Get("/remove", api.Remove)
 
-	RunHttpServer(logger, "3000", r)
+	RunHttpServer(logger, os.Getenv("PORT"), r)
 }
 
 func RunHttpServer(logger *logrus.Logger, port string, r *chi.Mux) {
@@ -51,15 +53,15 @@ func RunHttpServer(logger *logrus.Logger, port string, r *chi.Mux) {
 	<-stop
 
 	// send warning that we are closing
-	logger.Warnf("got signal: %v, closing DB connection gracefully", stop)
+	logger.Warnf("got signal: %v, closing any connection gracefully", stop)
 
 	// wait 5 second in background while server is trying to shut down
-	ctxKafka, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctxSvc, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	//try to shut down the server
 	logger.Warn("shutting down http server")
-	if err := server.Shutdown(ctxKafka); err != nil {
+	if err := server.Shutdown(ctxSvc); err != nil {
 		logger.Error(err)
 	}
 }

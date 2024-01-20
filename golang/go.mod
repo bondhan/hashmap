@@ -1,9 +1,10 @@
 module github.com/bondhan/hashmap
 
-go 1.20
+go 1.21
 
 require (
 	github.com/go-chi/chi/v5 v5.0.11
+	github.com/joho/godotenv v1.5.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
 )
