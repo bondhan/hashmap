@@ -2,3 +2,11 @@
 /out/
 /lib/
 /golang/.env
+/infra/gcp/credentials/optimist-408411-7d5c94c6fbdc.json
+/infra/gcp/terraform.tfvars
+/infra/gcp/.terraform/
+/infra/gcp/.terraform.lock.hcl
+/infra/gcp/.terraform.tfstate.lock.info
+/infra/gcp/terraform.tfstate
+/infra/gcp/terraform.tfstate.backup
+/infra/gcp/credentials/optimum-411813-f81c8e784217.json

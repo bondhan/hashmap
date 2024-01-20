@@ -1,0 +1,3 @@
+gcp_svc_key = "./credentials/projectname-f81c8e784217.json"
+gcp_project = "projectname"
+gcp_region = "us-east1"
