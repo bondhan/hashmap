@@ -1,15 +1,24 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/bondhan/hashmap/hashmap"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 var hm *hashmap.HashMap
 
 func init() {
 	hm = new(hashmap.HashMap)
+}
+
+func Root(h http.ResponseWriter, r *http.Request) {
+	_, err := h.Write([]byte("ok"))
+	if err != nil {
+		logrus.Error(err)
+		return
+	}
 }
 
 func Init(h http.ResponseWriter, r *http.Request) {

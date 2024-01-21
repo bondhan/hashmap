@@ -8,11 +8,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/bondhan/hashmap/api"
 	"github.com/go-chi/chi/v5"
+
 	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/sirupsen/logrus"
+
+	"github.com/bondhan/hashmap/api"
 )
 
 func main() {
@@ -27,6 +29,7 @@ func main() {
 		w.Write([]byte("welcome"))
 	})
 
+	r.Get("/", api.Root)
 	r.Get("/init", api.Init)
 	r.Get("/put", api.Put)
 	r.Get("/get", api.Get)

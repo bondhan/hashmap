@@ -1,11 +1,27 @@
 package api
 
 import (
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
+
+func TestRoot(t *testing.T) {
+	req, err := http.NewRequest("GET", "/", nil)
+
+	if err != nil {
+		t.Errorf("Error creating a new request: %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(Root)
+	handler.ServeHTTP(rr, req)
+
+	assert.Equal(t, http.StatusOK, rr.Code)
+	assert.Equal(t, "ok", rr.Body.String())
+}
 
 func TestInit(t *testing.T) {
 	req, err := http.NewRequest("GET", "/init", nil)
