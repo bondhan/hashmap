@@ -1,7 +1,9 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/bondhan/hashmap/hashmap"
 	"github.com/sirupsen/logrus"
@@ -14,7 +16,13 @@ func init() {
 }
 
 func Root(h http.ResponseWriter, r *http.Request) {
-	_, err := h.Write([]byte("ok"))
+	hostname, err := os.Hostname()
+	if err != nil {
+		logrus.Error(err)
+		return
+	}
+
+	_, err = h.Write([]byte(fmt.Sprint("hi, from ", hostname)))
 	if err != nil {
 		logrus.Error(err)
 		return

@@ -1,8 +1,10 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -19,8 +21,10 @@ func TestRoot(t *testing.T) {
 	handler := http.HandlerFunc(Root)
 	handler.ServeHTTP(rr, req)
 
+	hostname, _ := os.Hostname()
+
 	assert.Equal(t, http.StatusOK, rr.Code)
-	assert.Equal(t, "ok", rr.Body.String())
+	assert.Equal(t, fmt.Sprint("hi, from ", hostname), rr.Body.String())
 }
 
 func TestInit(t *testing.T) {
